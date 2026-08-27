@@ -125,6 +125,42 @@ python agent_based_supply_chain_simulation.py \
   --seed 42
 ```
 
+## Validated GitHub Actions run
+
+The complete workflow was executed on GitHub Actions with CPython 3.12.14. The ABM self-test, all nine regression tests, and the 8-selection / 12-validation stochastic policy-optimization smoke experiment completed successfully.
+
+GitHub-runner smoke result:
+
+```text
+selected policy
+  review period                 1 day
+  retailer/warehouse safety     3 demand-days
+  factory/supplier safety       1 demand-day
+  forecast alpha                0.20
+
+selected validation
+  mean cost                     176.614
+  immediate fill rate            99.574%
+  mean customer backlog           0.195
+  mean total inventory          523.513
+  mean bullwhip ratio            46.852
+  mean recovery time              0.000 days
+
+baseline validation
+  mean cost                     278.857
+  immediate fill rate            92.879%
+  mean customer backlog           4.288
+  mean total inventory          529.526
+  mean bullwhip ratio           294.338
+  mean recovery time              1.500 days
+
+paired cost(baseline) - cost(selected)
+  mean                          102.243
+  95% CI                     [73.597, 130.888]
+```
+
+These CI values are measurements under the declared synthetic model and the stated random seeds; they are not real-world savings, service, or resilience claims.
+
 ## Modeling scope
 
 This is an educational ABM, not a calibrated supply-chain digital twin. It assumes one product family, daily reviews, local order-up-to policies, fixed nominal transport lead times plus stochastic delays, one external Supplier source, and no explicit BOM, substitution, endogenous pricing, MOQ rules, or multi-customer allocation. A production application would require calibration from ERP/WMS/TMS histories, supplier reliability data, lane lead-time distributions, production/yield constraints, and structural-break validation.
